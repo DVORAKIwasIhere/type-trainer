@@ -8,6 +8,7 @@ import {
   validateKey,
 } from "./store/typingSlice";
 import { StyledLetter } from "./styled";
+import { GlobalStyle } from "./GlobalStyle";
 
 function App() {
   const typerItems = useSelector((state: RootState) => state.typerSlice.items);
@@ -45,15 +46,16 @@ function App() {
 
   return (
     <>
-      <div>
-        {typerItems.map((letter) => {
-          return (
-            <StyledLetter status={letter.status} key={letter.id}>
-              {letter.expectedLetter}
-            </StyledLetter>
-          );
-        })}
-      </div>
+      <GlobalStyle/>
+        <div>
+          {typerItems.map((letter) => {
+            return (
+              <StyledLetter $status={letter.status} key={letter.id}>
+                {letter.expectedLetter}
+              </StyledLetter>
+            );
+          })}
+        </div>
     </>
   );
 }
