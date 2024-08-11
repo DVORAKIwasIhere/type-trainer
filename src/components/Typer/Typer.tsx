@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyledLetter } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { parseText } from "../../store/typingSlice";
@@ -20,8 +20,7 @@ export const Typer = () => {
   }, [testText]);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  useHandleKey([inputRef]);
-  
+  const { wpm } = useHandleKey([inputRef]);
 
   return (
     <>
@@ -35,8 +34,13 @@ export const Typer = () => {
         })}
       </div>
       <div>
-        <input ref={inputRef} value={testText} onChange={(e) => setTestText(e.target.value)} />
+        <input
+          ref={inputRef}
+          value={testText}
+          onChange={(e) => setTestText(e.target.value)}
+        />
       </div>
+      <div>{wpm}</div>
     </>
   );
 };

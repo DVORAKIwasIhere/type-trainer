@@ -53,7 +53,7 @@ export const typerSlice = createSlice({
         currentItem.status = LetterStatus.Correct;
       } else {
         currentItem.status = LetterStatus.Wrong;
-        state.misses +=1
+        state.misses += 1;
       }
     },
   },
