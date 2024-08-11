@@ -37,8 +37,6 @@ export const typerSlice = createSlice({
     },
     printLetter: (state, action: PayloadAction<string>) => {
       state.items[state.currentLetterIndex].printedLetter = action.payload;
-      
-      console.log(state.items);
     },
     incrementCurrentLetterIndex: (state) => {
       state.currentLetterIndex += 1;
