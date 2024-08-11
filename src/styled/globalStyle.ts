@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-
-
 * {
   padding: 0;
   margin: 0;
@@ -10,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 body {
-    font-family: "Roboto", sans-serif; 
-    font-weight: 400;
+  font-family: "Roboto", sans-serif; 
+  font-weight: 400;
 }
 `;
