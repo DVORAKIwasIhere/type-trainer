@@ -5,6 +5,7 @@ import { LetterStatus } from "../models/letter";
 interface TypingState {
   items: LetterObject[];
   currentLetterIndex: number;
+  misses: number;
 }
 
 export interface LetterObject {
@@ -17,6 +18,7 @@ export interface LetterObject {
 const initialState: TypingState = {
   items: [],
   currentLetterIndex: 0,
+  misses: 0,
 };
 
 let letterID = 0;
@@ -34,6 +36,9 @@ export const typerSlice = createSlice({
           printedLetter: "",
         };
       });
+      letterID = 0;
+      state.currentLetterIndex = 0;
+      state.misses = 0;
     },
     printLetter: (state, action: PayloadAction<string>) => {
       state.items[state.currentLetterIndex].printedLetter = action.payload;
@@ -43,10 +48,13 @@ export const typerSlice = createSlice({
     },
     validateKey: (state) => {
       const currentItem = state.items[state.currentLetterIndex];
-      currentItem.status =
-      currentItem.printedLetter === currentItem.expectedLetter
-          ? LetterStatus.Correct
-          : LetterStatus.Wrong;
+
+      if (currentItem.printedLetter === currentItem.expectedLetter) {
+        currentItem.status = LetterStatus.Correct;
+      } else {
+        currentItem.status = LetterStatus.Wrong;
+        state.misses +=1
+      }
     },
   },
 });

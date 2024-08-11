@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyledLetter } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { parseText } from "../../store/typingSlice";
@@ -10,8 +10,6 @@ export const Typer = () => {
 
   const dispatch = useDispatch();
 
-  useHandleKey();
-
   const text =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
 
@@ -21,15 +19,24 @@ export const Typer = () => {
     dispatch(parseText(testText));
   }, [testText]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  useHandleKey([inputRef]);
+  
+
   return (
-    <div>
-      {typerItems.map((letter) => {
-        return (
-          <StyledLetter $status={letter.status} key={letter.id}>
-            {letter.expectedLetter}
-          </StyledLetter>
-        );
-      })}
-    </div>
+    <>
+      <div>
+        {typerItems.map((letter) => {
+          return (
+            <StyledLetter $status={letter.status} key={letter.id}>
+              {letter.expectedLetter}
+            </StyledLetter>
+          );
+        })}
+      </div>
+      <div>
+        <input ref={inputRef} value={testText} onChange={(e) => setTestText(e.target.value)} />
+      </div>
+    </>
   );
 };

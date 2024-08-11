@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TEXT_REGEXP } from "../models/letter";
 import { RootState } from "../store/store";
@@ -8,7 +8,7 @@ import {
   validateKey,
 } from "../store/typingSlice";
 
-export const useHandleKey = () => {
+export const useHandleKey = (ignoreRefs: any[]) => {
   const dispatch = useDispatch();
   const currentLetterIndex = useSelector(
     (state: RootState) => state.typerSlice.currentLetterIndex
@@ -19,6 +19,16 @@ export const useHandleKey = () => {
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
       const key = e.key;
+
+      const isAnyInputIgnored = ignoreRefs.some(
+        (ref) => ref.current && ref.current === document.activeElement
+      );
+
+      console.log(isAnyInputIgnored)
+      if (isAnyInputIgnored) {
+        return;
+      }
+
       if (TEXT_REGEXP.test(key) && currentLetterIndex < typerItems.length) {
         dispatch(printLetter(key));
         dispatch(validateKey());
