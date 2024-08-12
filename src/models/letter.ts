@@ -3,5 +3,3 @@ export enum LetterStatus {
   Wrong = "Wrong",
   Absent = "Absent",
 }
-
-export const TEXT_REGEXP = /^[А-Яа-яA-Za-z\s.,!?-]$/;
